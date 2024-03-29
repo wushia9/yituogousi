@@ -59,13 +59,11 @@ public class CounterController {
   /**
    * 新增账单
    * @param bill 账单
-   * @param request 请求
    * @return API response json
    */
-  @PostMapping(value = "/bill")
-  ApiResponse postBill(@RequestBody Bill bill, HttpServletRequest request) {
+  @PostMapping(value = "/bills")
+  ApiResponse postBill(@RequestBody Bill bill, @RequestHeader("\"x-wx-openid\"")String openId) {
     logger.info("/api/postBill post request, bill: {}", bill);
-    String openId = request.getHeader("x-wx-openid");
     billService.postBill(bill, openId);
     return ApiResponse.ok(bill);
   }

@@ -1,10 +1,4 @@
-CREATE TABLE `Counters` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `count` int(11) NOT NULL DEFAULT '1',
-  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
+
 CREATE TABLE user (
                       user_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '用户ID',
                       username VARCHAR(255) NOT NULL COMMENT '用户名',
