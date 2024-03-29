@@ -35,12 +35,13 @@ public class CounterController {
    * @return API response json
    */
   @GetMapping(value = "/bills")
-    ApiResponse getBills(@RequestHeader("\"x-wx-openid\"")String openId) {
+  ApiResponse getBills(HttpServletRequest request) {
+      String openId = request.getHeader("x-wx-openid");
       //获取请求中的请求头
       logger.info("/api/bills get request openid: {}", openId);
       List<BillListVo> bills = billService.getBills(openId);
       return ApiResponse.ok(bills);
-    }
+  }
 
   /**
    * 修改账单
@@ -59,11 +60,13 @@ public class CounterController {
   /**
    * 新增账单
    * @param bill 账单
+   * @param request 请求
    * @return API response json
    */
   @PostMapping(value = "/bills")
-  ApiResponse postBill(@RequestBody Bill bill, @RequestHeader("\"x-wx-openid\"")String openId) {
+  ApiResponse postBill(@RequestBody Bill bill, HttpServletRequest request) {
     logger.info("/api/postBill post request, bill: {}", bill);
+    String openId = request.getHeader("x-wx-openid");
     billService.postBill(bill, openId);
     return ApiResponse.ok(bill);
   }
