@@ -52,6 +52,7 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill>
         if (user == null){
             logger.info("数据库中不存在该openId的用户，进行创建");
             user = new User();
+            user.setUsername(openId);
             user.setWechatOpenid(openId);
             user.setIsDeleted(0);
             user.setCreatedAt(new Date());
