@@ -35,13 +35,12 @@ public class CounterController {
    * @return API response json
    */
   @GetMapping(value = "/bills")
-  ApiResponse getBills(HttpServletRequest request) {
-      String openId = request.getHeader("x-wx-openid");
+    ApiResponse getBills(@RequestHeader("x-wx-openid")String openId) {
       //获取请求中的请求头
       logger.info("/api/bills get request openid: {}", openId);
       List<BillListVo> bills = billService.getBills(openId);
       return ApiResponse.ok(bills);
-  }
+    }
 
   /**
    * 修改账单
@@ -50,24 +49,24 @@ public class CounterController {
    * @return API response json
    */
   @PutMapping(value = "/bills/{id}")
-    ApiResponse putBill(@RequestBody Bill bill, @PathVariable("id") int billId, @RequestHeader("\"x-wx-openid\"")String openId) {
+    ApiResponse putBill(@RequestBody Bill bill, @PathVariable("id") int billId, @RequestHeader("x-wx-openid")String openId) {
       logger.info("/api/putBill post request, bill: {}", bill);
       bill.setBillId(billId);
-//      billService.putBill(bill, openId);
+      billService.putBill(bill, openId);
       return ApiResponse.ok(bill);
     }
 
   /**
-   * 新增账单
+   * 修改账单
    * @param bill 账单
    * @param request 请求
    * @return API response json
    */
-  @PostMapping(value = "/bills")
-  ApiResponse postBill(@RequestBody Bill bill, HttpServletRequest request) {
-    logger.info("/api/postBill post request, bill: {}", bill);
+  @PostMapping(value = "/bill")
+  ApiResponse putBill(@RequestBody Bill bill, HttpServletRequest request) {
+    logger.info("/api/putBill post request, bill: {}", bill);
     String openId = request.getHeader("x-wx-openid");
-    billService.postBill(bill, openId);
+    billService.putBill(bill, openId);
     return ApiResponse.ok(bill);
   }
 

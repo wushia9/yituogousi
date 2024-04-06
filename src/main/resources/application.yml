@@ -15,3 +15,8 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
+
+api:
+  xawj:
+    url: "https://stockapi.market.alicloudapi.com"
+    appcode: "6247a09606ad43c5a64ee583446219d7"

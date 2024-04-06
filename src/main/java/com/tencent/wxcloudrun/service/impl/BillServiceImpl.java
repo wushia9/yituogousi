@@ -42,7 +42,7 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill>
     }
 
     @Override
-    public void postBill(Bill bill, String openId) {
+    public void putBill(Bill bill, String openId) {
         // 判断是否存在该openId的用户，存在则进行插入操作，不存在则不创建相应用户然后插入
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
         userQueryWrapper.lambda()
@@ -52,7 +52,6 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill>
         if (user == null){
             logger.info("数据库中不存在该openId的用户，进行创建");
             user = new User();
-            user.setUsername(openId);
             user.setWechatOpenid(openId);
             user.setIsDeleted(0);
             user.setCreatedAt(new Date());
