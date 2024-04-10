@@ -43,15 +43,13 @@ public class CounterController {
     }
 
   /**
-   * 修改账单
+   * 添加账单
    * @param bill 账单
-   * @param billId 账单id
    * @return API response json
    */
-  @PutMapping(value = "/bills/{id}")
-    ApiResponse putBill(@RequestBody Bill bill, @PathVariable("id") int billId, @RequestHeader("x-wx-openid")String openId) {
-      logger.info("/api/putBill post request, bill: {}", bill);
-      bill.setBillId(billId);
+  @PostMapping(value = "/bills")
+    ApiResponse putBill(@RequestBody Bill bill, @RequestHeader("x-wx-openid")String openId) {
+      logger.info("/api/bills post request, bill: {}", bill);
       billService.putBill(bill, openId);
       return ApiResponse.ok(bill);
     }
@@ -62,8 +60,9 @@ public class CounterController {
    * @param request 请求
    * @return API response json
    */
-  @PostMapping(value = "/bill")
-  ApiResponse putBill(@RequestBody Bill bill, HttpServletRequest request) {
+  @PutMapping(value = "/bills/{id}")
+  ApiResponse putBill(@RequestBody Bill bill, @PathVariable("id") int billId, HttpServletRequest request) {
+    // TODO 未完成
     logger.info("/api/putBill post request, bill: {}", bill);
     String openId = request.getHeader("x-wx-openid");
     billService.putBill(bill, openId);
