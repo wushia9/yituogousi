@@ -54,6 +54,7 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill>
             user = new User();
             user.setWechatOpenid(openId);
             user.setIsDeleted(0);
+            user.setUsername(openId);
             user.setCreatedAt(new Date());
             userMapper.insert(user);
         }
