@@ -79,8 +79,8 @@ public class CounterController {
    * @param page
    * @return
    */
-  @GetMapping(value = "/articles/{info}/{page}")
-  ApiResponse getArticlesPage(@PathVariable("info")String info, @PathVariable("page")int page){
+  @GetMapping(value = "/articles")
+  ApiResponse getArticlesPage(@RequestParam("info")String info, @RequestParam("page")int page){
     Page<Articles> articles = articlesService.getArticlesPage(info, page);
     logger.info("/api/articles get request, info: {}, page: {}", info, page);
     for (Articles art :
