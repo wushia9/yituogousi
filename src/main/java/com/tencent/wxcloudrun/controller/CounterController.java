@@ -48,6 +48,18 @@ public class CounterController {
     }
 
   /**
+   * 获取账单
+   * @return API response json
+   */
+  @GetMapping(value = "/billsOne/{id}")
+  ApiResponse getBill(@RequestHeader("x-wx-openid")String openId, @PathVariable("id")int id) {
+    //获取请求中的请求头
+    logger.info("/api/bills get request openid: {}", openId);
+    Bill bill = billService.getBillById(id);
+    return ApiResponse.ok(bill);
+  }
+
+  /**
    * 添加账单
    * @param bill 账单
    * @return API response json

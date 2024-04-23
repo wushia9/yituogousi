@@ -16,4 +16,6 @@ public interface BillService extends IService<Bill> {
     List<BillListVo> getBills(String openId);
 
     void putBill(Bill bill, String openId);
+
+    Bill getBillById(int id);
 }
