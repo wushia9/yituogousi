@@ -1,5 +1,6 @@
 package com.tencent.wxcloudrun.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tencent.wxcloudrun.model.Articles;
 import com.tencent.wxcloudrun.model.Bill;
@@ -48,7 +49,7 @@ public class CounterController {
     }
 
   /**
-   * 获取账单
+   * 获取一条账单
    * @return API response json
    */
   @GetMapping(value = "/billsOne/{id}")
@@ -65,7 +66,7 @@ public class CounterController {
    * @return API response json
    */
   @PostMapping(value = "/bills")
-    ApiResponse putBill(@RequestBody Bill bill, @RequestHeader("x-wx-openid")String openId) {
+    ApiResponse postBill(@RequestBody Bill bill, @RequestHeader("x-wx-openid")String openId) {
       logger.info("/api/bills post request, bill: {}", bill);
       billService.putBill(bill, openId);
       return ApiResponse.ok(bill);
@@ -81,9 +82,23 @@ public class CounterController {
   ApiResponse putBill(@RequestBody Bill bill, @PathVariable("id") int billId, HttpServletRequest request) {
     logger.info("/api/putBill post request, bill: {}", bill);
     String openId = request.getHeader("x-wx-openid");
-    billService.putBill(bill, openId);
+    billService.updateById(bill);
     return ApiResponse.ok(bill);
   }
+  /**
+   * 删除账单
+   * @param request 请求
+   * @return API response json
+   */
+  @DeleteMapping(value = "/bills/{id}")
+  ApiResponse deleteBill(@PathVariable("id") int billId, HttpServletRequest request) {
+    String openId = request.getHeader("x-wx-openid");
+    Bill bill = billService.getBillById(billId);
+    bill.setIsDeleted(1);
+    billService.updateById(bill);
+    return ApiResponse.ok(bill);
+  }
+
 
   /**
    * 获得文章分页
