@@ -89,6 +89,15 @@ public class CounterController {
     }
     return ApiResponse.ok(articles);
   }
+  /**
+   * 获得文章列表
+   * @return
+   */
+  @GetMapping(value = "/articlesList")
+  ApiResponse getArticlesList(){
+    List<Articles> articles = articlesService.getArticlesList();
+    return ApiResponse.ok(articles);
+  }
 
   /**
    * 获得具体文章

@@ -8,6 +8,8 @@ import com.tencent.wxcloudrun.service.ArticlesService;
 import com.tencent.wxcloudrun.mapper.ArticlesMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
 * @author 12951
 * @description 针对表【articles(文章)】的数据库操作Service实现
@@ -30,6 +32,11 @@ public class ArticlesServiceImpl extends ServiceImpl<ArticlesMapper, Articles>
                 .like(Articles::getName, info);
         articlesPage = articlesMapper.selectPage(articlesPage, queryWrapper);
         return articlesPage;
+    }
+
+    @Override
+    public List<Articles> getArticlesList() {
+        return articlesMapper.selectList(null);
     }
 }
 
