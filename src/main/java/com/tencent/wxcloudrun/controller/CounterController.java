@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tencent.wxcloudrun.model.Articles;
 import com.tencent.wxcloudrun.model.Bill;
+import com.tencent.wxcloudrun.model.User;
 import com.tencent.wxcloudrun.model.vo.BillListVo;
 import com.tencent.wxcloudrun.service.ArticlesService;
 import com.tencent.wxcloudrun.service.BillService;
+import com.tencent.wxcloudrun.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.tencent.wxcloudrun.config.ApiResponse;
@@ -29,9 +31,14 @@ public class CounterController {
   final Logger logger;
   private final BillService billService;
   private final ArticlesService articlesService;
+  private final UserService userService;
 
-  public CounterController(@Autowired BillService billService, @Autowired ArticlesService articlesService) {
+  public CounterController(@Autowired BillService billService,
+                           @Autowired ArticlesService articlesService,
+                           @Autowired UserService userService
+                           ) {
     this.billService = billService;
+    this.userService = userService;
     this.logger = LoggerFactory.getLogger(CounterController.class);
     this.articlesService = articlesService;
   }
@@ -70,6 +77,23 @@ public class CounterController {
       logger.info("/api/bills post request, bill: {}", bill);
       billService.putBill(bill, openId);
       return ApiResponse.ok(bill);
+    }
+
+    @GetMapping(value = "/isLogin")
+    ApiResponse isLogin(@RequestHeader("x-wx-openid")String openId) {
+      logger.info("/api/isLogin get request, openId: ", openId);
+      QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+      queryWrapper.lambda()
+                      .eq(User::getIsDeleted, 0)
+                      .eq(User::getWechatOpenid, openId);
+      User one = userService.getOne(queryWrapper);
+      if (one == null){
+        // 不存在该用户
+        return ApiResponse.ok(0);
+      }else{
+        return ApiResponse.ok(1);
+      }
+
     }
 
   /**
