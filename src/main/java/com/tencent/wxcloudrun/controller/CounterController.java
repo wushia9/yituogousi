@@ -95,8 +95,14 @@ public class CounterController {
       }else{
         return ApiResponse.ok(1);
       }
-
     }
+
+  @GetMapping(value = "/logout")
+  ApiResponse logout(@RequestHeader("x-wx-openid")String openId) {
+    logger.info("/api/isLogin get request, openId: ", openId);
+    boolean b = userService.logout(openId);
+    return ApiResponse.ok();
+  }
 
   /**
    * 修改账单
