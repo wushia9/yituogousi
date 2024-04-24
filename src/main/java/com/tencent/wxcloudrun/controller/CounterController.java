@@ -187,6 +187,7 @@ public class CounterController {
    */
   @PostMapping(value = "/articles")
   ApiResponse putArticles(@RequestBody Articles articles){
+    articles.setArticlesId(null);
     boolean b = articlesService.saveOrUpdate(articles);
     return ApiResponse.ok(b);
   }
