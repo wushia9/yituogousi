@@ -67,6 +67,11 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill>
             throw new RuntimeException("数据库插入user失败");
         }
     }
+
+    @Override
+    public Bill getBillById(int id) {
+        return billMapper.selectById(id);
+    }
 }
 
 

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tencent.wxcloudrun.model.Articles;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author 12951
 * @description 针对表【articles(文章)】的数据库操作Service
@@ -12,4 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ArticlesService extends IService<Articles> {
 
     Page<Articles> getArticlesPage(String info, int page);
+
+    List<Articles> getArticlesList();
 }
