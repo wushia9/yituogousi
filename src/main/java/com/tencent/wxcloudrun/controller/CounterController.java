@@ -23,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class CounterController {
 
   final Logger logger;
