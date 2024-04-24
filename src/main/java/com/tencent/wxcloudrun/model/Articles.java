@@ -21,7 +21,7 @@ public class Articles implements Serializable {
     /**
      * 
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer articlesId;
 
     /**
