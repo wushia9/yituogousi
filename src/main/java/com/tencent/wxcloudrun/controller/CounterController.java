@@ -191,5 +191,15 @@ public class CounterController {
     boolean b = articlesService.saveOrUpdate(articles);
     return ApiResponse.ok(b);
   }
+  /**
+   * 删除文章
+   * @param id
+   * @return
+   */
+  @DeleteMapping(value = "/articles/{id}")
+  ApiResponse putArticles(@PathVariable("id")int id){
+    boolean b = articlesService.removeById(id);
+    return ApiResponse.ok(b);
+  }
 
 }
