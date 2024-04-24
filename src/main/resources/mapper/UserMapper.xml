@@ -10,10 +10,11 @@
             <result property="wechatOpenid" column="wechat_openid" jdbcType="VARCHAR"/>
             <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
             <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+            <result property="isLogin" column="is_login" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         user_id,username,wechat_openid,
-        created_at,is_deleted
+        created_at,is_deleted,is_login
     </sql>
 </mapper>

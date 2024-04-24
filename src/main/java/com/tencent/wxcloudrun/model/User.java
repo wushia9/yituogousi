@@ -40,6 +40,11 @@ public class User implements Serializable {
      * 是否删除
      */
     private Integer isDeleted;
+    /**
+     * 是否登录
+     */
+    private Integer isLogin;
+
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -60,7 +65,8 @@ public class User implements Serializable {
             && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
             && (this.getWechatOpenid() == null ? other.getWechatOpenid() == null : this.getWechatOpenid().equals(other.getWechatOpenid()))
             && (this.getCreatedAt() == null ? other.getCreatedAt() == null : this.getCreatedAt().equals(other.getCreatedAt()))
-            && (this.getIsDeleted() == null ? other.getIsDeleted() == null : this.getIsDeleted().equals(other.getIsDeleted()));
+            && (this.getIsDeleted() == null ? other.getIsDeleted() == null : this.getIsDeleted().equals(other.getIsDeleted()))
+            && (this.getIsLogin() == null ? other.getIsLogin() == null : this.getIsLogin().equals(other.getIsLogin()));
     }
 
     @Override
@@ -72,6 +78,7 @@ public class User implements Serializable {
         result = prime * result + ((getWechatOpenid() == null) ? 0 : getWechatOpenid().hashCode());
         result = prime * result + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
         result = prime * result + ((getIsDeleted() == null) ? 0 : getIsDeleted().hashCode());
+        result = prime * result + ((getIsLogin() == null) ? 0 : getIsLogin().hashCode());
         return result;
     }
 
@@ -86,6 +93,7 @@ public class User implements Serializable {
         sb.append(", wechatOpenid=").append(wechatOpenid);
         sb.append(", createdAt=").append(createdAt);
         sb.append(", isDeleted=").append(isDeleted);
+        sb.append(", isLogin=").append(isLogin);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

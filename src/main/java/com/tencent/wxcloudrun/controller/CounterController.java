@@ -86,7 +86,8 @@ public class CounterController {
       QueryWrapper<User> queryWrapper = new QueryWrapper<>();
       queryWrapper.lambda()
                       .eq(User::getIsDeleted, 0)
-                      .eq(User::getWechatOpenid, openId);
+                      .eq(User::getWechatOpenid, openId)
+                      .eq(User::getIsLogin, 1);
       User one = userService.getOne(queryWrapper);
       if (one == null){
         // 不存在该用户
@@ -172,6 +173,16 @@ public class CounterController {
   ApiResponse putArticles(@RequestBody Articles articles, @PathVariable("id")int id){
     articlesService.updateById(articles);
     return ApiResponse.ok();
+  }
+  /**
+   * 新增文章
+   * @param articles
+   * @return
+   */
+  @PostMapping(value = "/articles")
+  ApiResponse putArticles(@RequestBody Articles articles){
+    boolean b = articlesService.saveOrUpdate(articles);
+    return ApiResponse.ok(b);
   }
 
 }
