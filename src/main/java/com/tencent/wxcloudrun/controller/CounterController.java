@@ -213,7 +213,7 @@ public class CounterController {
             .eq(User::getIsDeleted, 0);
     User one = userService.getOne(queryWrapper);
     if (one != null){
-      return ApiResponse.ok();
+      return ApiResponse.ok("token");
     }else{
       return ApiResponse.error("用户名或密码错误");
     }
