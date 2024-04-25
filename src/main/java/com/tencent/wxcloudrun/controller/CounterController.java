@@ -16,6 +16,7 @@ import com.tencent.wxcloudrun.config.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -204,7 +205,7 @@ public class CounterController {
   }
 
   @PostMapping(value = "/login")
-  ApiResponse login(@RequestBody User user){
+  ApiResponse loginToAdmin(@RequestBody User user){
     logger.info("/api/login post request, user: {}", user);
     QueryWrapper<User> queryWrapper = new QueryWrapper<>();
     queryWrapper.lambda()
@@ -236,6 +237,49 @@ public class CounterController {
       UsersInfo usersInfo = billService.getUsersInfo();
       return ApiResponse.ok(usersInfo);
     }
+  }
+
+  @GetMapping("/usersPage")
+  ApiResponse getUsersPage(@RequestParam("info")String info, @RequestParam("page")int page) {
+    Page<User> users = userService.getUsersPage(info, page);
+    return ApiResponse.ok(users);
+  }
+
+  @PostMapping("/users")
+  ApiResponse postUser(@RequestBody User user, @RequestHeader("x-wx-openid")String openId) {
+    // 查找数据库是否有该用户
+    QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+    queryWrapper.lambda()
+            .eq(User::getWechatOpenid, openId)
+            .eq(User::getIsDeleted, 0);
+    User one = userService.getOne(queryWrapper);
+    if (one == null){
+      user.setWechatOpenid(openId);
+      user.setIsLogin(1);
+      userService.save(user);
+    }else{
+      one.setIsLogin(1);
+      userService.updateById(one);
+    }
+    return ApiResponse.ok();
+  }
+
+  @PutMapping("/users")
+  ApiResponse putUser(@RequestBody User user, @RequestHeader("x-wx-openid")String openId) {
+    // 查找数据库是否有该用户
+    QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+    queryWrapper.lambda()
+            .eq(User::getWechatOpenid, openId)
+            .eq(User::getIsDeleted, 0);
+    User one = userService.getOne(queryWrapper);
+    if (user.getUsername() != null && user.getUsername().length() > 0){
+      one.setUsername(user.getUsername());
+    }
+    if (user.getAvatarUrl() != null && user.getAvatarUrl().length() > 0){
+      one.setAvatarUrl(user.getAvatarUrl());
+    }
+    userService.updateById(one);
+    return ApiResponse.ok();
   }
 
 }

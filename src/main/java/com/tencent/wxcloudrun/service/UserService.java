@@ -1,5 +1,6 @@
 package com.tencent.wxcloudrun.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tencent.wxcloudrun.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -11,4 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface UserService extends IService<User> {
 
     boolean logout(String openId);
+
+    Page<User> getUsersPage(String info, int page);
 }

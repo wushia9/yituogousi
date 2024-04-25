@@ -1,12 +1,15 @@
 package com.tencent.wxcloudrun.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tencent.wxcloudrun.model.User;
 import com.tencent.wxcloudrun.service.UserService;
 import com.tencent.wxcloudrun.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
 * @author 12951
@@ -33,6 +36,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             return false;
         }
     }
+
+    @Override
+    public Page<User> getUsersPage(String info, int page) {
+        return null;
+    }
+
+
+
 }
 
 

@@ -60,6 +60,11 @@ public class User implements Serializable {
      * 密码
      */
     private String password;
+    /**
+     * 头像地址
+     */
+    private String avatarUrl;
+
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -84,7 +89,8 @@ public class User implements Serializable {
             && (this.getIsLogin() == null ? other.getIsLogin() == null : this.getIsLogin().equals(other.getIsLogin()))
             && (this.getToken() == null ? other.getToken() == null : this.getToken().equals(other.getToken()))
             && (this.getRole() == null ? other.getRole() == null : this.getRole().equals(other.getRole()))
-            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()));
+            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
+            && (this.getAvatarUrl() == null ? other.getAvatarUrl() == null : this.getAvatarUrl().equals(other.getAvatarUrl()));
     }
 
     @Override
@@ -100,6 +106,7 @@ public class User implements Serializable {
         result = prime * result + ((getToken() == null) ? 0 : getToken().hashCode());
         result = prime * result + ((getRole() == null) ? 0 : getRole().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
+        result = prime * result + ((getAvatarUrl() == null) ? 0 : getAvatarUrl().hashCode());
         return result;
     }
 
@@ -118,6 +125,7 @@ public class User implements Serializable {
         sb.append(", token=").append(token);
         sb.append(", role=").append(role);
         sb.append(", password=").append(password);
+        sb.append(", avatarUrl=").append(avatarUrl);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
