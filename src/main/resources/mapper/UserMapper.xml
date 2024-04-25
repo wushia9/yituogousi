@@ -21,4 +21,17 @@
         created_at,is_deleted,is_login,
         token,role,password
     </sql>
+    <select id="getTotal" resultType="java.lang.Integer">
+        select count(*) from user
+        <where>
+            and user.is_deleted = 0
+        </where>
+    </select>
+    <select id="getToday" resultType="java.lang.Integer">
+        select count(*) from user
+        <where>
+            and user.is_deleted = 0
+            and DATE_FORMAT(bill.time, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+        </where>
+    </select>
 </mapper>

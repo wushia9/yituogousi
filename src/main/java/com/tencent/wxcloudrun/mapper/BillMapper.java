@@ -18,6 +18,10 @@ import java.util.List;
 public interface BillMapper extends BaseMapper<Bill> {
 
     List<BillListVo> getBills(@Param("openId") String openId);
+
+
+    int getTodayMoney();
+    int getTodayCount();
 }
 
 

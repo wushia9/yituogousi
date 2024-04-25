@@ -6,6 +6,7 @@ import com.tencent.wxcloudrun.model.Articles;
 import com.tencent.wxcloudrun.model.Bill;
 import com.tencent.wxcloudrun.model.User;
 import com.tencent.wxcloudrun.model.vo.BillListVo;
+import com.tencent.wxcloudrun.model.vo.UsersInfo;
 import com.tencent.wxcloudrun.service.ArticlesService;
 import com.tencent.wxcloudrun.service.BillService;
 import com.tencent.wxcloudrun.service.UserService;
@@ -217,6 +218,24 @@ public class CounterController {
     }else{
       return ApiResponse.error("用户名或密码错误");
     }
-}
+
+  }
+
+  @GetMapping(value = "/userInfo")
+  ApiResponse getUserInfo(@RequestHeader("x-wx-openid")String openId){
+    logger.info("/api/userInfo get request, openId: {}", openId);
+    QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+    queryWrapper.lambda()
+            .eq(User::getWechatOpenid, openId)
+            .eq(User::getIsDeleted, 0)
+            .eq(User::getRole, 1);
+    User one = userService.getOne(queryWrapper);
+    if (one != null){
+      return ApiResponse.error("你没有权限！");
+    }else{
+      UsersInfo usersInfo = billService.getUsersInfo();
+      return ApiResponse.ok(usersInfo);
+    }
+  }
 
 }

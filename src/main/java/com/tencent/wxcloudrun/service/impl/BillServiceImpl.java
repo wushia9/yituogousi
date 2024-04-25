@@ -6,6 +6,7 @@ import com.tencent.wxcloudrun.mapper.UserMapper;
 import com.tencent.wxcloudrun.model.Bill;
 import com.tencent.wxcloudrun.model.User;
 import com.tencent.wxcloudrun.model.vo.BillListVo;
+import com.tencent.wxcloudrun.model.vo.UsersInfo;
 import com.tencent.wxcloudrun.service.BillService;
 import com.tencent.wxcloudrun.mapper.BillMapper;
 import org.slf4j.Logger;
@@ -71,6 +72,20 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill>
     @Override
     public Bill getBillById(int id) {
         return billMapper.selectById(id);
+    }
+
+    @Override
+    public UsersInfo getUsersInfo() {
+        int total = userMapper.getTotal();
+        int today = userMapper.getToday();
+        int todayMoney = billMapper.getTodayMoney();
+        int todayCount = billMapper.getTodayCount();
+        UsersInfo usersInfo = new UsersInfo();
+        usersInfo.setTotal(total);
+        usersInfo.setToday(today);
+        usersInfo.setTodayMoney(todayMoney);
+        usersInfo.setTodayCount(todayCount);
+        return usersInfo;
     }
 }
 

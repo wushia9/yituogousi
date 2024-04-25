@@ -29,7 +29,8 @@ public class ArticlesServiceImpl extends ServiceImpl<ArticlesMapper, Articles>
         Page<Articles> articlesPage = new Page<>(page, 10);
         QueryWrapper<Articles> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda()
-                .like(Articles::getName, info);
+                .like(Articles::getName, info)
+                .orderByDesc(Articles::getCreateTime);
         articlesPage = articlesMapper.selectPage(articlesPage, queryWrapper);
         return articlesPage;
     }
