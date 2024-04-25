@@ -40,11 +40,26 @@ public class User implements Serializable {
      * 是否删除
      */
     private Integer isDeleted;
+
     /**
      * 是否登录
      */
     private Integer isLogin;
 
+    /**
+     * token
+     */
+    private String token;
+
+    /**
+     * 权限：0 普通用户 1 管理员
+     */
+    private Integer role;
+
+    /**
+     * 密码
+     */
+    private String password;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -66,7 +81,10 @@ public class User implements Serializable {
             && (this.getWechatOpenid() == null ? other.getWechatOpenid() == null : this.getWechatOpenid().equals(other.getWechatOpenid()))
             && (this.getCreatedAt() == null ? other.getCreatedAt() == null : this.getCreatedAt().equals(other.getCreatedAt()))
             && (this.getIsDeleted() == null ? other.getIsDeleted() == null : this.getIsDeleted().equals(other.getIsDeleted()))
-            && (this.getIsLogin() == null ? other.getIsLogin() == null : this.getIsLogin().equals(other.getIsLogin()));
+            && (this.getIsLogin() == null ? other.getIsLogin() == null : this.getIsLogin().equals(other.getIsLogin()))
+            && (this.getToken() == null ? other.getToken() == null : this.getToken().equals(other.getToken()))
+            && (this.getRole() == null ? other.getRole() == null : this.getRole().equals(other.getRole()))
+            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()));
     }
 
     @Override
@@ -79,6 +97,9 @@ public class User implements Serializable {
         result = prime * result + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
         result = prime * result + ((getIsDeleted() == null) ? 0 : getIsDeleted().hashCode());
         result = prime * result + ((getIsLogin() == null) ? 0 : getIsLogin().hashCode());
+        result = prime * result + ((getToken() == null) ? 0 : getToken().hashCode());
+        result = prime * result + ((getRole() == null) ? 0 : getRole().hashCode());
+        result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         return result;
     }
 
@@ -94,6 +115,9 @@ public class User implements Serializable {
         sb.append(", createdAt=").append(createdAt);
         sb.append(", isDeleted=").append(isDeleted);
         sb.append(", isLogin=").append(isLogin);
+        sb.append(", token=").append(token);
+        sb.append(", role=").append(role);
+        sb.append(", password=").append(password);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

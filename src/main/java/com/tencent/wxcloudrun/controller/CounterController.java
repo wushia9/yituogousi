@@ -186,7 +186,7 @@ public class CounterController {
    * @return
    */
   @PostMapping(value = "/articles")
-  ApiResponse putArticles(@RequestBody Articles articles){
+  ApiResponse postArticles(@RequestBody Articles articles){
     articles.setArticlesId(null);
     boolean b = articlesService.saveOrUpdate(articles);
     return ApiResponse.ok(b);
@@ -197,9 +197,26 @@ public class CounterController {
    * @return
    */
   @DeleteMapping(value = "/articles/{id}")
-  ApiResponse putArticles(@PathVariable("id")int id){
+  ApiResponse deleteArticles(@PathVariable("id")int id){
     boolean b = articlesService.removeById(id);
     return ApiResponse.ok(b);
   }
+
+  @PostMapping(value = "/login")
+  ApiResponse login(@RequestBody User user){
+    logger.info("/api/login post request, user: {}", user);
+    QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+    queryWrapper.lambda()
+            .eq(User::getUsername, user.getUsername())
+            .eq(User::getPassword, user.getPassword())
+            .eq(User::getRole, 1)
+            .eq(User::getIsDeleted, 0);
+    User one = userService.getOne(queryWrapper);
+    if (one != null){
+      return ApiResponse.ok();
+    }else{
+      return ApiResponse.error("用户名或密码错误");
+    }
+}
 
 }

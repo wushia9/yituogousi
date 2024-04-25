@@ -4,9 +4,9 @@ import com.tencent.wxcloudrun.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
-* @author 35793
+* @author 12951
 * @description 针对表【user(用户表)】的数据库操作Service
-* @createDate 2024-03-19 23:38:22
+* @createDate 2024-04-25 10:15:06
 */
 public interface UserService extends IService<User> {
 

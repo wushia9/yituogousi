@@ -9,25 +9,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
-* @author 35793
+* @author 12951
 * @description 针对表【user(用户表)】的数据库操作Service实现
-* @createDate 2024-03-19 23:38:22
+* @createDate 2024-04-25 10:15:06
 */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
-
     @Autowired
     private UserMapper userMapper;
 
     @Override
     public boolean logout(String openId) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda()
-                        .eq(User::getWechatOpenid, openId);
+        queryWrapper.eq("wechat_openid", openId);
+        queryWrapper.eq("is_deleted", 0);
         User user = userMapper.selectOne(queryWrapper);
-        user.setIsLogin(0);
-        return userMapper.updateById(user) == 1;
+        if (user != null) {
+            user.setIsLogin(0);
+            userMapper.updateById(user);
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 
