@@ -37,7 +37,12 @@ public class ArticlesServiceImpl extends ServiceImpl<ArticlesMapper, Articles>
 
     @Override
     public List<Articles> getArticlesList() {
-        return articlesMapper.selectList(null);
+        List<Articles> articles = articlesMapper.selectList(null);
+        for (Articles art :
+                articles) {
+            art.setContent("");
+        }
+        return articles;
     }
 }
 

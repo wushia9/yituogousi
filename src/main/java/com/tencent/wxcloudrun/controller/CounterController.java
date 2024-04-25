@@ -259,6 +259,8 @@ public class CounterController {
       userService.save(user);
     }else{
       one.setIsLogin(1);
+      one.setUsername(user.getUsername());
+      one.setAvatarUrl(user.getAvatarUrl());
       userService.updateById(one);
     }
     return ApiResponse.ok();
@@ -281,5 +283,7 @@ public class CounterController {
     userService.updateById(one);
     return ApiResponse.ok();
   }
+
+
 
 }
