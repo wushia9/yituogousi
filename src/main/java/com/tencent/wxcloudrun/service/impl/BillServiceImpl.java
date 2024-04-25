@@ -50,15 +50,15 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill>
                         .eq(User::getWechatOpenid, openId)
                         .eq(User::getIsDeleted, 0);
         User user = userMapper.selectOne(userQueryWrapper);
-        if (user == null){
-            logger.info("数据库中不存在该openId的用户，进行创建");
-            user = new User();
-            user.setWechatOpenid(openId);
-            user.setIsDeleted(0);
-            user.setUsername(openId);
-            user.setCreatedAt(new Date());
-            userMapper.insert(user);
-        }
+//        if (user == null){
+//            logger.info("数据库中不存在该openId的用户，进行创建");
+//            user = new User();
+//            user.setWechatOpenid(openId);
+//            user.setIsDeleted(0);
+//            user.setUsername(openId);
+//            user.setCreatedAt(new Date());
+//            userMapper.insert(user);
+//        }
         if (user.getUserId() != null){
             bill.setUserId(user.getUserId());
             bill.setCreatedAt(new Date());
