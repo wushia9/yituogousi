@@ -76,10 +76,10 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill>
 
     @Override
     public UsersInfo getUsersInfo() {
-        int total = userMapper.getTotal();
-        int today = userMapper.getToday();
-        int todayMoney = billMapper.getTodayMoney();
-        int todayCount = billMapper.getTodayCount();
+        Integer total = userMapper.getTotal();
+        Integer today = userMapper.getToday();
+        Integer todayMoney = billMapper.getTodayMoney();
+        Integer todayCount = billMapper.getTodayCount();
         UsersInfo usersInfo = new UsersInfo();
         usersInfo.setTotal(total);
         usersInfo.setToday(today);

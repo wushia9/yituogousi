@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsersInfo {
-    private int total;
-    private int today;
-    private int todayMoney;
-    private int todayCount;
+    private Integer total;
+    private Integer today;
+    private Integer todayMoney;
+    private Integer todayCount;
 }
