@@ -246,6 +246,28 @@ public class CounterController {
     return ApiResponse.ok(users);
   }
 
+  @GetMapping("/userXheader/{openId}")
+  ApiResponse userXheader(@PathVariable("openId")String openId){
+    QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+    queryWrapper.lambda()
+            .eq(User::getWechatOpenid, openId);
+    User one = userService.getOne(queryWrapper);
+    one.setAvatarUrl("");
+    userService.updateById(one);
+    return ApiResponse.ok();
+  }
+
+  @GetMapping("/userXname/{openId}")
+  ApiResponse userXname(@PathVariable("openId")String openId){
+    QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+    queryWrapper.lambda()
+            .eq(User::getWechatOpenid, openId);
+    User one = userService.getOne(queryWrapper);
+    one.setUsername("违规名称");
+    userService.updateById(one);
+    return ApiResponse.ok();
+  }
+
   @PostMapping("/users")
   ApiResponse postUser(@RequestBody User user, @RequestHeader("x-wx-openid")String openId) {
     // 查找数据库是否有该用户

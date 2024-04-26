@@ -45,9 +45,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
                 .eq(User::getIsDeleted, 0);
         return userMapper.selectPage(new Page<>(page, 10), queryWrapper);
     }
-
-
-
 }
 
 
