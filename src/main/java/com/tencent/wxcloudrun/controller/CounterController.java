@@ -231,7 +231,7 @@ public class CounterController {
             .eq(User::getIsDeleted, 0)
             .eq(User::getRole, 1);
     User one = userService.getOne(queryWrapper);
-    if (one != null){
+    if (one == null){
       return ApiResponse.error("你没有权限！");
     }else{
       UsersInfo usersInfo = billService.getUsersInfo();
