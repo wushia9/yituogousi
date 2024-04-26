@@ -215,7 +215,7 @@ public class CounterController {
             .eq(User::getIsDeleted, 0);
     User one = userService.getOne(queryWrapper);
     if (one != null){
-      return ApiResponse.ok("token");
+      return ApiResponse.ok(one.getWechatOpenid());
     }else{
       return ApiResponse.error("用户名或密码错误");
     }
@@ -238,6 +238,7 @@ public class CounterController {
       return ApiResponse.ok(usersInfo);
     }
   }
+
 
   @GetMapping("/usersPage")
   ApiResponse getUsersPage(@RequestParam("info")String info, @RequestParam("page")int page) {
