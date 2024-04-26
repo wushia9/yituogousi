@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.List;
@@ -253,6 +256,33 @@ public class CounterController {
       return ApiResponse.ok(one);
     }
   }
+
+//  @GetMapping(value = "/getAuthKey")
+//  ApiResponse getAuthKey(@RequestHeader("x-wx-openid")String openId) {
+//    HttpClient client = HttpClient.newHttpClient();
+//    HttpRequest request = HttpRequest.newBuilder()
+//            .uri(URI.create("http://api.weixin.qq.com/wxa/msg_sec_check"))
+//            .header("Content-Type", "application/json")
+//            .POST(java.net.http.HttpRequest.BodyPublishers.ofString(
+//                    "{\"openid\":\"用户的openid\",\"version\":2,\"scene\":2,\"content\":\"安全检测文本\"}"))
+//            .build();
+//
+//    client.sendAsync(request, BodyHandlers.ofString())
+//            .thenApply(HttpResponse::body)
+//            .thenAccept(responseBody -> {
+//              System.out.println("接口返回内容: " + responseBody);
+//              try {
+//                // 这里可以解析responseBody为JSON对象，然后进行后续处理
+//                // 例如，使用org.json或者Jackson库解析JSON
+//              } catch (IOException e) {
+//                e.printStackTrace();
+//              }
+//            })
+//            .exceptionally(error -> {
+//              System.err.println("请求失败: " + error);
+//              return null;
+//            });
+//  }
 
 
   @GetMapping("/usersPage")
