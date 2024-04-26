@@ -239,6 +239,21 @@ public class CounterController {
     }
   }
 
+  @GetMapping(value = "/users")
+  ApiResponse getUserInfoByOpenid(@RequestHeader("x-wx-openid")String openId){
+    logger.info("/api/userInfo get request, openId: {}", openId);
+    QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+    queryWrapper.lambda()
+            .eq(User::getWechatOpenid, openId)
+            .eq(User::getIsDeleted, 0);
+    User one = userService.getOne(queryWrapper);
+    if (one == null){
+      return ApiResponse.error("用户不存在");
+    }else{
+      return ApiResponse.ok(one);
+    }
+  }
+
 
   @GetMapping("/usersPage")
   ApiResponse getUsersPage(@RequestParam("info")String info, @RequestParam("page")int page) {
