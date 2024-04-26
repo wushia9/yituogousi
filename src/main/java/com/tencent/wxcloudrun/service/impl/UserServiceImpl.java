@@ -39,7 +39,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public Page<User> getUsersPage(String info, int page) {
-        return null;
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda()
+                .like(User::getUsername, info)
+                .eq(User::getIsDeleted, 0);
+        return userMapper.selectPage(new Page<>(page, 10), queryWrapper);
     }
 
 
