@@ -70,6 +70,7 @@
     </select>
     <select id="getTodayCount" resultType="java.lang.Integer">
         select count(*) from bill
+        left join bill on bill.user_id = user.user_id
         <where>
                 and bill.is_deleted = 0
                 and DATE_FORMAT(bill.time, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
