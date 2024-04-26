@@ -64,7 +64,6 @@
         <where>
                 and bill.is_deleted = 0
                 and user.is_deleted = 0
-                and user.wechat_openid = #{openId}
                 and DATE_FORMAT(bill.time, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
         </where>
     </select>
